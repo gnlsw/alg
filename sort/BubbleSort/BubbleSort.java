@@ -4,9 +4,6 @@ class BubbleSort
     void bubbleSort(int[] arr)
     {
         int n = arr.length;
-        System.out.println("---unsorted array---");
-        printArray(arr);
-        System.out.println("---unsorted array---");
         for(int i = 0; i < n -1; i++)
         {
             for(int j = 0; j < n - i - 1; j++)
@@ -18,11 +15,7 @@ class BubbleSort
                     arr[j] = arr[j + 1];
                     arr[j + 1] = tmp;
                 }
-                printArray(arr);
             }
-            System.out.println("---one trace---");
-            printArray(arr);
-            System.out.println("---one trace---");
         }
     }
 
