@@ -1,6 +1,6 @@
 import java.lang.String;
 
-public class LCS
+public class LcsRecursive
 {
     public static int lcs(String X, String Y, int xLen, int yLen)
     {
