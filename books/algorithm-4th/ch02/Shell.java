@@ -16,7 +16,7 @@ public class Shell
         {
             for(int i = h; i < N; i++)
             {
-                for(int j = i; j >= h && less(a[j], a[j-h]); j--)
+                for(int j = i; j >= h && less(a[j], a[j-h]); j -= h)
                 {
                     exch(a, j, j - h);
                 }
