@@ -8,7 +8,7 @@ public class Shell
         // 将a[]按升序排列
         int N = a.length;
         int h = 1;
-        while(h < N)
+        while(h < N/3)
         {
             h = 3*h + 1;
         }
