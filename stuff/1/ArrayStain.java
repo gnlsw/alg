@@ -3,7 +3,7 @@ import java.util.*;
 
 public class ArrayStain {
     public static void main(String[] args) {
-        if(args.length == 0)
+        if(args.length != 1)
         {
             System.out.println("please input a decimal");
             return;
@@ -20,7 +20,9 @@ public class ArrayStain {
             return;
         }
 
-        calc();
+        induction(var);
+        
+        // calc();
     }
 
     private static void calc() {
@@ -107,5 +109,39 @@ public class ArrayStain {
         }
 
         return true;
+    }
+
+    private static void induction(int n)
+    {
+        if(0 >= n)
+        {
+            System.out.println(0 + " ways to color.");
+        }
+        if(1 == n)
+        {
+            System.out.println(3 + " ways to color.");
+        }
+        if(2 == n)
+        {
+            System.out.println(6 + " ways to color.");
+        }
+        if(3 == n)
+        {
+            System.out.println(6 + " ways to color.");
+        }
+
+        int a = 6; // for var = 2
+        int b = 6; // for var = 3
+        int c = 0; // c = 2 * a + b
+
+        int count = 4;
+        while(count <= n)
+        {
+            c = 2 * a + b;
+            a = b;
+            b = c;
+            count++;
+        }
+        System.out.println(c + " ways to color.");
     }
 }
