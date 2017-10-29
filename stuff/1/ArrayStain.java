@@ -1,5 +1,6 @@
 import java.lang.*;
 import java.util.*;
+import java.math.*;
 
 public class ArrayStain {
     public static void main(String[] args) {
@@ -130,14 +131,15 @@ public class ArrayStain {
             System.out.println(6 + " ways to color.");
         }
 
-        int a = 6; // for var = 2
-        int b = 6; // for var = 3
-        int c = 0; // c = 2 * a + b
+        BigInteger a = BigInteger.valueOf(6); // for var = 2
+        BigInteger b = BigInteger.valueOf(6); // for var = 3
+        BigInteger c = BigInteger.valueOf(0); // c = 2 * a + b
+        BigInteger m = BigInteger.valueOf(2);
 
         int count = 4;
         while(count <= n)
         {
-            c = 2 * a + b;
+            c = (a.multiply(m)).add(b);
             a = b;
             b = c;
             count++;
