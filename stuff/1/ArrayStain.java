@@ -3,22 +3,22 @@ import java.util.*;
 
 public class ArrayStain {
     public static void main(String[] args) {
-       if(args.length == 0)
-       {
-           System.out.println("please input a decimal");
-           return;
-       }
+        if(args.length == 0)
+        {
+            System.out.println("please input a decimal");
+            return;
+        }
 
-       int var;
-       try
-       {
-           var = Integer.parseInt(args[0]);
-       }
-       catch(NumberFormatException e)
-       {
-           System.out.println(args[0] + "is not number.");
-           return;
-       }
+        int var;
+        try
+        {
+            var = Integer.parseInt(args[0]);
+        }
+        catch(NumberFormatException e)
+        {
+            System.out.println(args[0] + "is not number.");
+            return;
+        }
 
         calc();
     }
