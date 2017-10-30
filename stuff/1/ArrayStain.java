@@ -24,6 +24,8 @@ public class ArrayStain {
         induction(var);
         
         // calc();
+
+        exhaust(var);
     }
 
     private static void calc() {
@@ -145,5 +147,47 @@ public class ArrayStain {
             count++;
         }
         System.out.println(c + " ways to color.");
+    }
+
+    public static void exhaust(int var)
+    {
+        String[] elements = {"R", "G", "B"};
+        ArrayList<ArrayList<String>> list = new ArrayList<>();
+
+        // n = 0
+        ArrayList<String> list_0 = new ArrayList<>();
+        list.add(list_0);
+
+        // n = 1
+        ArrayList<String> list_1 = new ArrayList<String>();
+        for(int index = 0; index < elements.length; index++)
+        {
+            list_1.add(elements[index]);
+        }
+        list.add(list_1);
+
+        for(int n = 2; n <= var; n++)
+        {
+            ArrayList<String> prev_result = list.get(n - 1);
+            ArrayList<String> next_result = new ArrayList<String>();
+            int count = 0;
+            for(int i = 0; i < prev_result.size(); i++)
+            {
+                String item = prev_result.get(i);
+                for(int j = 0; j < elements.length; j++)
+                {
+                    String new_item = item + elements[j];
+                    boolean result = judge(new_item);
+                    if (true == result)
+                    {
+                        count++;
+                        System.out.println(new_item + " " + result);
+                    }
+                    next_result.add(new_item);
+                }
+            }
+            System.out.println("n = " + n + " , count = " + count);
+            list.add(next_result);
+        }
     }
 }
