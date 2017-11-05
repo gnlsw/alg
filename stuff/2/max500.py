@@ -1,4 +1,12 @@
+# *-* coding:utf-8 *-*
+
+"""
+文件中各行已经根据时间排序
+使用堆，返回出现次数前7的时间点
+"""
+
 def sift_down(result):
+    """heap sift down"""
     heap_length = len(result)
     index = 1
     while index * 2 < heap_length:
@@ -17,6 +25,7 @@ def sift_down(result):
 
 
 def sift_up(result):
+    """heap sift up"""
     index = len(result) - 1
     while index > 1:
         if result[index].compare_count(result[index/2]) < 0:
@@ -29,6 +38,7 @@ def sift_up(result):
     return
 
 def add_record(result, record):
+    """add a new record to heap"""
     if len(result) < 8:
         result.append(record)
         sift_up(result)
@@ -39,17 +49,21 @@ def add_record(result, record):
         sift_down(result)
 
 class Record:
+    """Record of time and count"""
     def __init__(self, time):
         self.time = time
         self.count = 1
 
     def same_time(self, time):
+        """judeg time is the same"""
         return self.time == time
 
     def count_plus_one(self):
+        """count increase"""
         self.count += 1
 
     def compare_count(self, record):
+        """compare two item's count"""
         return self.count - record.count
 
     def __str__(self):
