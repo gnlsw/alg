@@ -8,33 +8,33 @@
 class RecordHeap(object):
     """保存Record的list，同时保证list具备堆得性质，index为0的元素不使用"""
     def __init__(self, max_capacity):
-        self.result = ["None"]
-        self.max_capacity = max_capacity
+        self.__result = ["None"]
+        self.__max_capacity = max_capacity
 
     def add_record(self, record):
         """add a new record to heap"""
-        if len(self.result) < self.max_capacity + 1:
-            self.result.append(record)
+        if len(self.__result) < self.__max_capacity + 1:
+            self.__result.append(record)
             self.sift_up()
         else:
             # compare the reocrd's count with the item[1]'s count. if bigger, the replace
-            self.result[1] = record
+            self.__result[1] = record
             self.sift_down()
 
     def sift_down(self):
         """heap sift down"""
-        heap_length = len(self.result)
+        heap_length = len(self.__result)
         index = 1
         while index * 2 < heap_length:
             child_index = index * 2
             if child_index + 1 < heap_length:
-                if self.result[child_index].compare_count(self.result[child_index + 1]) > 0:
+                if self.__result[child_index].compare_count(self.__result[child_index + 1]) > 0:
                     child_index += 1
 
-            if self.result[index].compare_count(self.result[child_index]) > 0:
-                tmp = self.result[index]
-                self.result[index] = self.result[child_index]
-                self.result[child_index] = tmp
+            if self.__result[index].compare_count(self.__result[child_index]) > 0:
+                tmp = self.__result[index]
+                self.__result[index] = self.__result[child_index]
+                self.__result[child_index] = tmp
                 index = child_index
             else:
                 break
@@ -42,20 +42,21 @@ class RecordHeap(object):
 
     def sift_up(self):
         """heap sift up"""
-        index = len(self.result) - 1
+        index = len(self.__result) - 1
         while index > 1:
-            if self.result[index].compare_count(self.result[index/2]) < 0:
-                tmp = self.result[index]
-                self.result[index] = self.result[index/2]
-                self.result[index / 2] = tmp
+            if self.__result[index].compare_count(self.__result[index/2]) < 0:
+                tmp = self.__result[index]
+                self.__result[index] = self.__result[index/2]
+                self.__result[index / 2] = tmp
                 index = index / 2
             else:
                 break
         return
 
     def print_result(self):
-        for index in range(1, len(self.result)):
-            print self.result[index]
+        """打印堆中元素"""
+        for index in range(1, len(self.__result)):
+            print self.__result[index]
 
 
 
@@ -63,23 +64,27 @@ class RecordHeap(object):
 class Record(object):
     """Record of time and count"""
     def __init__(self, time):
-        self.time = time
-        self.count = 1
+        self.__time = time
+        self.__count = 1
 
     def same_time(self, time):
         """judeg time is the same"""
-        return self.time == time
+        return self.__time == time
 
     def count_plus_one(self):
         """count increase"""
-        self.count += 1
+        self.__count += 1
 
     def compare_count(self, record):
         """compare two item's count"""
-        return self.count - record.count
+        return self.__count - record.get_count()
+
+    def get_count(self):
+        """返回count"""
+        return self.__count
 
     def __str__(self):
-        return 'time is {0}, count is {1}'.format(self.time, self.count)
+        return 'time is {0}, count is {1}'.format(self.__time, self.__count)
 
 
 if __name__ == "__main__":
