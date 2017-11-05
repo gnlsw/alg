@@ -5,50 +5,62 @@
 使用堆，返回出现次数前7的时间点
 """
 
-def sift_down(result):
-    """heap sift down"""
-    heap_length = len(result)
-    index = 1
-    while index * 2 < heap_length:
-        child_index = index * 2
-        if child_index + 1 < heap_length:
-            if result[child_index].compare_count(result[child_index + 1]) > 0:
-                child_index += 1
+class RecordHeap(object):
+    """保存Record的list，同时保证list具备堆得性质，index为0的元素不使用"""
+    def __init__(self, max_capacity):
+        self.result = ["None"]
+        self.max_capacity = max_capacity
 
-        if result[index].compare_count(result[child_index]) > 0:
-            tmp = result[index]
-            result[index] = result[child_index]
-            result[child_index] = tmp
-            index = child_index
+    def add_record(self, record):
+        """add a new record to heap"""
+        if len(self.result) < self.max_capacity + 1:
+            self.result.append(record)
+            self.sift_up()
         else:
-            break
+            # compare the reocrd's count with the item[1]'s count. if bigger, the replace
+            self.result[1] = record
+            self.sift_down()
+
+    def sift_down(self):
+        """heap sift down"""
+        heap_length = len(self.result)
+        index = 1
+        while index * 2 < heap_length:
+            child_index = index * 2
+            if child_index + 1 < heap_length:
+                if self.result[child_index].compare_count(self.result[child_index + 1]) > 0:
+                    child_index += 1
+
+            if self.result[index].compare_count(self.result[child_index]) > 0:
+                tmp = self.result[index]
+                self.result[index] = self.result[child_index]
+                self.result[child_index] = tmp
+                index = child_index
+            else:
+                break
 
 
-def sift_up(result):
-    """heap sift up"""
-    index = len(result) - 1
-    while index > 1:
-        if result[index].compare_count(result[index/2]) < 0:
-            tmp = result[index]
-            result[index] = result[index/2]
-            result[index / 2] = tmp
-            index = index / 2
-        else:
-            break
-    return
+    def sift_up(self):
+        """heap sift up"""
+        index = len(self.result) - 1
+        while index > 1:
+            if self.result[index].compare_count(self.result[index/2]) < 0:
+                tmp = self.result[index]
+                self.result[index] = self.result[index/2]
+                self.result[index / 2] = tmp
+                index = index / 2
+            else:
+                break
+        return
 
-def add_record(result, record):
-    """add a new record to heap"""
-    if len(result) < 8:
-        result.append(record)
-        sift_up(result)
-    else:
-        # compare the reocrd's count with the item[1]'s count
-        # if bigger, the replace
-        result[1] = record
-        sift_down(result)
+    def print_result(self):
+        for index in range(1, len(self.result)):
+            print self.result[index]
 
-class Record:
+
+
+
+class Record(object):
     """Record of time and count"""
     def __init__(self, time):
         self.time = time
@@ -71,8 +83,7 @@ class Record:
 
 
 if __name__ == "__main__":
-    result = []
-    result.append('None')
+    record_heap = RecordHeap(7)
 
     fp_in = open("trade.log", 'r')
 
@@ -86,7 +97,8 @@ if __name__ == "__main__":
         if current_record.same_time(next_time):
             current_record.count_plus_one()
         else:
-            add_record(result, current_record)
+            record_heap.add_record(current_record)
             current_record = Record(next_time)
 
-    add_record(result, current_record)
+    record_heap.add_record(current_record)
+    record_heap.print_result()
