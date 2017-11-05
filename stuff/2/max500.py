@@ -18,8 +18,8 @@ def sift_down(result):
 
 def sift_up(result):
     index = len(result) - 1
-    while(index > 1):
-        if(result[index].compare_count(result[index/2]) < 0):
+    while index > 1:
+        if result[index].compare_count(result[index/2]) < 0:
             tmp = result[index]
             result[index] = result[index/2]
             result[index / 2] = tmp
@@ -31,7 +31,7 @@ def sift_up(result):
 def add_record(result, record):
     if len(result) < 8:
         result.append(record)
-        sift_up(result);
+        sift_up(result)
     else:
         # compare the reocrd's count with the item[1]'s count
         # if bigger, the replace
@@ -44,10 +44,7 @@ class Record:
         self.count = 1
 
     def same_time(self, time):
-        if self.time == time:
-            return True
-        else:
-            return False
+        return self.time == time
 
     def count_plus_one(self):
         self.count += 1
